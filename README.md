@@ -1,4 +1,4 @@
-## 📸 Screenshots
+## 📸 How it looks
 
 <p align="center">
   <img src="./screenshots/iphone_example.gif" width="250" />
