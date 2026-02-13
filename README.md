@@ -1,3 +1,10 @@
+## 📸 Screenshots
+
+<p align="center">
+  <img src="./screenshots/iphone_example.gif" width="250" />
+</p>
+
+
 # React Native Wheel DateTime Picker
 
 A fully customizable **wheel-based Date & Time Picker** for React Native.  
