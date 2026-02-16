@@ -1,6 +1,6 @@
 {
   "name": "@hitesh0009/react-native-datetime-picker",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A fully customizable wheel-based Date & Time picker for React Native with dynamic month handling, infinite scrolling wheels, and optional start/end date clamping.",
   "keywords": [
     "react-native",

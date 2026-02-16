@@ -1,42 +1,44 @@
-## 📸 How it looks
-
-<p align="center">
-  <img src="./screenshots/iphone_example.gif" width="250" />
-</p>
-
-
 # React Native Wheel DateTime Picker
 
-A fully customizable **wheel-based Date & Time Picker** for React Native.  
-Built from scratch with smooth scrolling, min/max date constraints, infinite wheels, and **full TypeScript support**.
+A fully customizable **wheel-based Date & Time Picker** for React Native — built from scratch with smooth physics, infinite wheels, date constraints, and complete TypeScript support.
 
-Unlike modal-based pickers, this component is designed to be **embedded directly in your UI**, making it ideal for booking flows, forms, schedulers, and custom designs.
+Unlike modal pickers, this component is designed to be **embedded directly in your UI**, making it ideal for booking flows, schedulers, forms, onboarding, and any design that demands control.
+
+---
+
+## 📸 Preview
+
+<p align="center">
+  <img src="./screenshots/iphone_example.gif" width="250" alt="Wheel DateTime Picker Preview" />
+</p>
 
 ---
 
 ## ✨ Features
 
-- 🌀 Smooth wheel-based scrolling (iOS-style)
-- 📅 Date & time selection in one component
-- ⏱ Supports **12h / 24h** formats
-- 🔒 Min / Max date limits (auto-clamping)
+- 🌀 Native-like wheel scrolling (iOS style)
+- 📅 Unified date & time selection
+- ⏱ 12-hour and 24-hour support
+- 🔒 Min / Max date constraints with auto-clamping
 - 🔁 Infinite scrolling wheels
-- 🧠 Intelligent day handling (Feb, leap years, etc.)
-- 🎨 Highly customizable styles
+- 🧠 Automatic day handling (month length, leap years)
+- 🎨 Highly customizable appearance
 - 🧩 Fully typed with TypeScript
-- ⚡ No native modules, no dependencies
+- ⚡ No native modules, zero dependencies
+- 📱 Works on both iOS & Android
+- 🧱 Designed for embedded layouts (not modals)
 
 ---
 
 ## 📦 Installation
 
-```sh
+```bash
 npm install react-native-wheel-datetime-picker
-````
+```
 
 or
 
-```sh
+```bash
 yarn add react-native-wheel-datetime-picker
 ```
 
@@ -63,11 +65,11 @@ export default function App() {
 
 ## 🧠 How It Works
 
-* Each unit (day, month, year, hours, minutes) is a **wheel**
-* Wheels snap to rows for precise selection
-* When a value goes outside `start` / `end`, it is **clamped**
-* Wheels automatically **roll back** to the nearest valid value
-* Day count updates automatically when month/year changes
+- Each unit (day, month, year, hours, minutes) is rendered as an independent **wheel**
+- Wheels snap to rows for precise selection
+- Values outside `start` / `end` are automatically **clamped**
+- Wheels roll back to the nearest valid value when limits are exceeded
+- Day count updates dynamically when month or year changes
 
 ---
 
@@ -75,21 +77,21 @@ export default function App() {
 
 ### `DateTimePickerProps`
 
-| Prop                     | Type                      | Required | Description                           |
-| ------------------------ | ------------------------- | -------- | ------------------------------------- |
-| `initial`                | `Date`                    | ✅        | Initial selected date                 |
-| `start`                  | `Date`                    | ❌        | Minimum selectable date               |
-| `end`                    | `Date`                    | ❌        | Maximum selectable date               |
-| `onChange`               | `(date: Date) => void`    | ❌        | Called on every valid change          |
-| `format`                 | `DateTimeFormat`          | ❌        | Controls display & time format        |
-| `height`                 | `number`                  | ❌        | Height of a single row (default `44`) |
-| `numRows`                | `number`                  | ❌        | Visible rows (default `5`)            |
-| `fontFamily`             | `string`                  | ❌        | Font family for text                  |
-| `textSizeActive`         | `number`                  | ❌        | Font size for selected item           |
-| `textSizeInActive`       | `number`                  | ❌        | Font size for inactive items          |
-| `textWeightActive`       | `TextStyle["fontWeight"]` | ❌        | Font weight for selected item         |
-| `textWeightInActive`     | `TextStyle["fontWeight"]` | ❌        | Font weight for inactive items        |
-| `selectorContainerStyle` | `ViewStyle`               | ❌        | Style for the selection highlight     |
+| Prop                     | Type                      | Required | Description                   |
+| ------------------------ | ------------------------- | -------- | ----------------------------- |
+| `initial`                | `Date`                    | ✅       | Initial selected date         |
+| `start`                  | `Date`                    | ❌       | Minimum selectable date       |
+| `end`                    | `Date`                    | ❌       | Maximum selectable date       |
+| `onChange`               | `(date: Date) => void`    | ❌       | Fired on every valid change   |
+| `format`                 | `DateTimeFormat`          | ❌       | Display & time format options |
+| `height`                 | `number`                  | ❌       | Row height (default: `44`)    |
+| `numRows`                | `number`                  | ❌       | Visible rows (default: `5`)   |
+| `fontFamily`             | `string`                  | ❌       | Font family                   |
+| `textSizeActive`         | `number`                  | ❌       | Font size of selected item    |
+| `textSizeInActive`       | `number`                  | ❌       | Font size of inactive items   |
+| `textWeightActive`       | `TextStyle["fontWeight"]` | ❌       | Font weight of selected item  |
+| `textWeightInActive`     | `TextStyle["fontWeight"]` | ❌       | Font weight of inactive items |
+| `selectorContainerStyle` | `ViewStyle`               | ❌       | Style for selection highlight |
 
 ---
 
@@ -137,13 +139,13 @@ type DateTimeFormat = {
 />
 ```
 
-✔ If the user scrolls outside limits, the picker **automatically snaps back**.
+✔ If the user scrolls outside limits, the picker automatically snaps to the nearest valid value.
 
 ---
 
 ## 🧪 TypeScript Support
 
-All props are fully typed and exported.
+All public types are exported.
 
 ```ts
 import type {
@@ -153,61 +155,63 @@ import type {
 } from "react-native-wheel-datetime-picker";
 ```
 
-You get:
+Provides:
 
-* IntelliSense
-* Auto-complete
-* Compile-time safety
+- IntelliSense
+- Autocomplete
+- Compile-time safety
+- Strongly typed formatting options
 
 ---
 
-## 🧱 Architecture Overview
+## 🧱 Architecture
 
-* `DateTimePicker`
-  Manages state, date logic, validation, and clamping
+**DateTimePicker**
+Manages state, validation, date math, and constraints.
 
-* `Wheel`
-  Generic wheel component using `FlatList` + snapping
+**Wheel**
+Generic reusable wheel component powered by `FlatList` snapping.
 
-* `types.ts`
-  Public API types for consumers
+**types.ts**
+Public API surface for consumers.
 
-No context, no Redux, no magic — just clean React.
+No context, no Redux, no hidden state — just predictable React components.
 
 ---
 
 ## ⚠️ Notes
 
-* This is a **controlled internal picker**, not modal-based
-* Designed for **embedded UI**, not dialogs
-* Works on both **Android & iOS**
-* No native code required
+- This is an embedded picker, not modal-based
+- Designed for custom layouts and complex UI flows
+- No native code required
+- Works in Expo and bare React Native
 
 ---
 
 ## 📄 License
 
-MIT License © 2026
+MIT © 2026
 
 ---
 
 ## 🙌 Contributing
 
-PRs and issues are welcome.
-If you find a bug or want a feature, open an issue.
+Issues and pull requests are welcome.
+If you encounter a bug or want a feature, feel free to open an issue.
 
 ---
 
-## ⭐ Why This Exists
+## ⭐ Why This Library Exists
 
-Most date pickers are:
+Most React Native date pickers are:
 
-* modal-only
-* hard to style
-* poorly typed
-* over-engineered
+- Modal-only
+- Hard to customize
+- Poorly typed
+- Overly complex
+- Difficult to embed
 
-This library is built for **control, clarity, and composability**.
+This library focuses on **control, composability, and developer ergonomics**.
 
 ---
 
