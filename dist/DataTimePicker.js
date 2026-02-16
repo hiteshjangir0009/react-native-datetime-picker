@@ -23,17 +23,76 @@ export const DateTimePicker = ({ start, end, initial, selectorContainerStyle, te
     const [hour, setHour] = useState(format.timeFormat == 24 ? hours24 : hours12);
     const [minutes, setMinutes] = useState(initialdate.getMinutes());
     const [meridiem, setMeridiem] = useState(period);
-    // Calculate days in month - THIS IS THE FIX
+    const firstDayOfMonth = 1;
+    const lastDayOfMonth = new Date(year, month, 0).getDate();
+    // Calculate days in month
     const days_DATA = useMemo(() => {
-        const daysInMonth = new Date(year, month, 0).getDate();
-        return Array.from({ length: daysInMonth }, (_, i) => i + 1);
+        let min_day = firstDayOfMonth;
+        let max_Day = lastDayOfMonth;
+        if (minDate &&
+            year === minDate.getFullYear() &&
+            month === minDate.getMonth() + 1) {
+            min_day = minDate.getDate();
+        }
+        if (maxDate &&
+            year === maxDate.getFullYear() &&
+            month === maxDate.getMonth() + 1) {
+            max_Day = maxDate.getDate();
+        }
+        const array = Array.from({ length: max_Day - min_day + 1 }, (_, i) => min_day + i);
+        return array;
     }, [year, month]); // Recalculate when year or month changes
-    const month_DATA = Array.from({ length: 12 }, (_, i) => i + 1);
-    const year_DATA = Array.from({ length: 20 }, (_, i) => 2020 + i);
+    const month_DATA = useMemo(() => {
+        let min_month = 1;
+        let max_month = 12;
+        if (minDate) {
+            min_month = minDate.getMonth() + 1;
+        }
+        if (maxDate) {
+            max_month = maxDate.getMonth() + 1;
+        }
+        const array = Array.from({ length: max_month - min_month + 1 }, (_, i) => min_month + i);
+        return array;
+    }, [minDate, maxDate]);
+    const year_DATA = useMemo(() => {
+        let min_year = 2020;
+        let max_year = 2050;
+        if (minDate) {
+            min_year = minDate.getFullYear();
+        }
+        if (maxDate) {
+            max_year = maxDate.getFullYear();
+        }
+        const array = Array.from({ length: max_year - min_year + 1 }, (_, i) => min_year + i);
+        return array;
+    }, [minDate, maxDate]);
     // Time
-    const hour24_DATA = Array.from({ length: 24 }, (_, i) => i);
-    const hour12_DATA = Array.from({ length: 12 }, (_, i) => (i === 0 ? 12 : i));
+    const hour24_DATA = useMemo(() => {
+        let min_hour = 0;
+        let max_hour = 23;
+        if (minDate)
+            min_hour = minDate.getHours();
+        if (maxDate)
+            max_hour = maxDate.getHours();
+        const array = Array.from({ length: max_hour - min_hour + 1 }, (_, i) => min_hour + i);
+        return array;
+    }, [minDate, maxDate]);
+    const hour12_DATA = useMemo(() => {
+        let min_hour = 1;
+        let max_hour = 12;
+        if (minDate)
+            min_hour = minDate.getHours() === 0 ? 12 : minDate.getHours();
+        if (maxDate)
+            max_hour = maxDate.getHours() === 0 ? 12 : maxDate.getHours();
+        const array = Array.from({ length: max_hour - min_hour + 1 }, (_, i) => min_hour + i === 0 ? 12 : min_hour + i);
+        return array;
+    }, [minDate, maxDate]);
     const minutes_DATA = Array.from({ length: 60 }, (_, i) => i);
+    const meridiem_DATA = ["AM", "PM"];
+    const to12 = (h24) => {
+        const h = h24 % 12;
+        return h === 0 ? 12 : h;
+    };
     const ITEM_HEIGHT = height || 44;
     const VISIBLE_ITEMS = numRows || 3;
     const CENTER_INDEX = Math.floor(VISIBLE_ITEMS / 2);
